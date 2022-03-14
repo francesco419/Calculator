@@ -111,25 +111,25 @@
                         alert('**error : Ends With NaN**');
                         return;
                     }
-                    let n = 0;
+                    
+                    let No = 0;
                     let ChangedSums = new Array();
                     let SumUps =0;
 
-                    let dump='.';
                     for(let i=0;i<GetSums.length;i++){
                         switch(GetSums[i]){
                             case '/' : 
-                                ChangedSums[n-1]=parseInt(ChangedSums[n-1])/parseInt(GetSums[i+1]);
+                                ChangedSums[No-1]=parseInt(ChangedSums[No-1])/parseInt(GetSums[i+1]);
                                 i++;
                                 break;
 
                             case 'x' : 
-                                ChangedSums[n-1]=parseInt(ChangedSums[n-1])*parseInt(GetSums[i+1]);
+                                ChangedSums[No-1]=parseInt(ChangedSums[No-1])*parseInt(GetSums[i+1]);
                                 i++;
                                 break;
 
                             default : 
-                                ChangedSums[n++]=GetSums[i];
+                                ChangedSums[No++]=GetSums[i];
                         }
                     }
                     SumUps+=parseInt(ChangedSums[0]);
@@ -155,7 +155,6 @@
                 <div>
                     <a href="https://github.com/francesco419/">GitHub</a>
                 </div>
-
             </h4>
         </div>
     </div>
