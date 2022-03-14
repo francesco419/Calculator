@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="calculator.css" rel="stylesheet" type="text/css"/>
+
+    <title>**Calculator**LoSH</title>
+
+    <style>
+        body{
+            background-image: url("https://postfiles.pstatic.net/20161020_155/moon150714_1476928809033kbIKV_JPEG/%B4%DC%BB%F6_%B9%E8%B0%E6%C8%AD%B8%E9_%B1%F2%B2%FB%C7%D1%B0%C9_%C3%A3%C0%B8%B8%E9_%C0%CC%B0%C9%B7%CE_%C7%D8%BF%E4_%282%29.jpg?type=w966");
+            background-repeat: repeat;
+            background-size:cover;
+            };
+    </style>
+</head>
+<body>
+    <div>
+        <h1 class="line">Calculator</h1>
+    </div>
+    <div>
+        <table class="cal">
+            <tr> 
+                <td colspan="4">
+                    <input type="text" id="Show">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <input type="text" id="result">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" onclick="clearout()">AC</td>
+                <td onclick="getT('/')">/</td>
+            </tr>
+            <tr>
+                <td onclick="NumPress(7)">7</td>
+                <td onclick="NumPress(8)">8</td>
+                <td onclick="NumPress(9)">9</td>
+                <td onclick="getT('x')">x</td>
+            </tr>
+            <tr>
+                <td onclick="NumPress(4)">4</td>
+                <td onclick="NumPress(5)">5</td>
+                <td onclick="NumPress(6)">6</td>
+                <td onclick="getT('-')">-</td>
+            </tr>
+            <tr>
+                <td onclick="NumPress(1)">1</td>
+                <td onclick="NumPress(2)">2</td>
+                <td onclick="NumPress(3)">3</td>
+                <td onclick="getT('+')">+</td>
+            </tr>
+            <tr>
+                <td colspan="2" onclick="NumPress(0)">0</td>
+                <td onclick="delnum()">del</td>
+                <td onclick="sumall()">=</td>
+            </tr>
+            <script>
+                let Num=0;
+                let temp="";
+                let GetSums = new Array();
+                const Show = document.getElementById('Show');
+                const Result = document.getElementById('result');
+
+                function delnum(){
+                    Show.value=Show.value.slice(0,-1);
+                    if(Num>0){
+                        --Num;
+                    }
+                    if(temp!=""){
+                        temp.slice(0,-1)
+                    }
+                }
+
+                function clearout(){
+                    Show.value="";
+                    Result.value="";
+                    GetSums=[];
+                    Num=0
+                    temp="";
+                }
+
+                function NumPress(ch){
+                    temp+=ch;
+                    Show.value+=ch;
+                }
+
+                function getT(ch){
+                    if(Show.value==""){
+                        alert("**error : Need Number Before NaN**");
+                    }else if(isNaN(GetSums[Num-1])&&temp==""&&(Num!=0)){
+                        GetSums[Num-1]=ch;
+                        Show.value=Show.value.slice(0,-1);
+                        Show.value+=ch;
+                    }else{
+                        GetSums[Num++]=temp;
+                        temp="";
+                        Show.value+=ch;
+                        GetSums[Num++]=ch;
+                    }
+                }
+
+                function sumall(){
+                    GetSums[Num]=temp;
+                    if(isNaN(GetSums[Num])){
+                        alert('**error : Ends With NaN**');
+                        return;
+                    }
+                    let n = 0;
+                    let ChangedSums = new Array();
+                    let SumUps =0;
+
+                    let dump='.';
+                    for(let i=0;i<GetSums.length;i++){
+                        switch(GetSums[i]){
+                            case '/' : 
+                                ChangedSums[n-1]=parseInt(ChangedSums[n-1])/parseInt(GetSums[i+1]);
+                                i++;
+                                break;
+
+                            case 'x' : 
+                                ChangedSums[n-1]=parseInt(ChangedSums[n-1])*parseInt(GetSums[i+1]);
+                                i++;
+                                break;
+
+                            default : 
+                                ChangedSums[n++]=GetSums[i];
+                        }
+                    }
+                    SumUps+=parseInt(ChangedSums[0]);
+                    for(let i=0;i<ChangedSums.length;i++){
+                        switch(ChangedSums[i]){
+                            case '+' :
+                                SumUps+=parseInt(ChangedSums[++i]);
+                                break;
+                            case '-' :
+                                SumUps-=parseInt(ChangedSums[++i]);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    Result.value+=SumUps;
+                }
+            </script>
+        </table>
+        <div>
+            <h4 class="line">
+                francesco419@naver.com
+                <div>
+                    <a href="https://github.com/francesco419/">GitHub</a>
+                </div>
+
+            </h4>
+        </div>
+    </div>
+    <script scr="calculator.js"></script>
+</body>
+</html>
